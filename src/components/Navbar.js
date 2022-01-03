@@ -23,23 +23,16 @@ const Navbar = () =>{
 
     useEffect(() => {
         },[user]);
-
-    useEffect(() => {
-        axios.get('/auth/acount') .then(response => {
-            setUsercheck(response.data)
-           console.log(usercheck);
-        })
-        if(JSON.parse(localStorage.getItem("hooMemberId")) === usercheck){
-            console.log(user);
-            dispatch({type: LogIntrue})
-           // console.log(JSON.parse(localStorage.getItem("hooMemberId")));
-            console.log(user);
-        }
-        else {
-            dispatch({type: LogInfalse})
-        }
-
-    },[]);
+    axios.get('/auth/acount') .then(response => {
+        setUsercheck(response.data)
+    })
+    if(JSON.parse(localStorage.getItem("hooMemberId")) === usercheck){
+        dispatch({type: LogIntrue})
+        // console.log(JSON.parse(localStorage.getItem("hooMemberId")));
+    }
+    else {
+        dispatch({type: LogInfalse})
+    }
 
 // test
 
