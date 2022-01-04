@@ -21,15 +21,14 @@ const Hoologin = () => { //로그인 페이지
     frm.append('password', hooMemberPassword);
 
 
-    const onSubmit = async (e) => { // 로그인 요청
+    const onSubmit = async () => { // 로그인 요청
      axios.post('/auth/loginProc', frm) // 로그인 정보 폼데이터로 전송
-            .then(res => {
+            .then(res => {  dispatch({type: LogIntrue, hooMemberId});
                 }, error => { // 로그인 실패 시
                 dispatch({type: LogInfalse});
                 alert('로그인 실패');
             });
-        dispatch({type: LogIntrue, hooMemberId});
-        history('/');
+     history('/');
     }
 
 
