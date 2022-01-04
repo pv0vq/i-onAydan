@@ -10,7 +10,7 @@ const Hoologin = () => { //로그인 페이지
 
     const [hooMemberId, setHooMemberId] = useState(''); //유저 아이디
     const [hooMemberPassword, setHooMemberPassword] = useState(''); // 유저 비밀번호
-    const [userck, setUserck] = useState('');
+
 
     const history = useNavigate(); // 화면이동
     const dispatch = useDispatch(); // 리덕스 전달
