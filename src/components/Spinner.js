@@ -1,5 +1,5 @@
 import React from "react";
-const Spinner = () => {
+const Spinner = () => { // 로딩중 화면 css
         return(
             <div className="d-flex justify-content-center">
                 <div

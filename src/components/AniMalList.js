@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const AniMalList = ({user}) => {
+const AniMalList = ({user}) => { // 동물 리스트 컴포넌트
   console.log(user);
   return(
       <div>

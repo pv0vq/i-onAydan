@@ -6,45 +6,20 @@ import {
 import axios from "axios";
 // url을 조정가능하게 만듬
 import {useDispatch, useSelector} from 'react-redux'
-import {LogInfalse, LogIntrue} from "../action";
+import {LogInfalse, LogIntrue} from "../redux/action";
 
 
-const Navbar = () =>{
-    // const [account,SetAccount] = useState('');
-    const dispatch = useDispatch();
-    const [usercheck, setUsercheck] = useState('');
-    const user = useSelector(state => state.Loginck.value);
-    //console.log(user);
-    const onSubmit =() => {
+const Navbar = () =>{ //네비게이션 바
+
+    const dispatch = useDispatch(); //리덕스 set 함수
+    const user = useSelector(state => state.value); //리덕스 get 함수
+
+    const onSubmit =() => { // 로그인시 서버에 요청, 리덕스값: false로 바꿈
         axios.post('/logout')
         dispatch({type: LogInfalse})
     }
 
-
-    useEffect(() => {
-        },[user]);
-    axios.get('/auth/acount') .then(response => {
-        setUsercheck(response.data)
-    })
-    if(JSON.parse(localStorage.getItem("hooMemberId")) === usercheck){
-        dispatch({type: LogIntrue})
-        // console.log(JSON.parse(localStorage.getItem("hooMemberId")));
-    }
-    else {
-        dispatch({type: LogInfalse})
-    }
-
-// test
-
-        // useEffect(() => { //랜더링 시 실행 즉 마운트라고 생각하는게 편함
-    //     axios.get('/auth/acount') //JSONPlaceholder 받아온거임
-    //         .then(response => { // 비동기 응답
-    //             SetAccount(response.data);
-    //               //  console.log(account);
-    //         })
-    // },); // 실행될때 한번만 데이터 가져오기
-
-    if (user === 'false') {
+    if (user === 'false') { // 비로그인시 회원가입과 로그인 네비바
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
@@ -64,7 +39,7 @@ const Navbar = () =>{
             </nav>
         );
     }
-    else{
+    else{ // 로그인시 게시판리스트와 로그아웃 네비바
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
@@ -76,7 +51,6 @@ const Navbar = () =>{
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            <li className="nav-item"><NavLink className="nav-link" to="/movies">Movies</NavLink></li>
                             <li className="nav-item"><NavLink className="nav-link" to="/ani">AniMalList</NavLink></li>
                             <li className="nav-item"><NavLink className="nav-link" to="/ani/login" onClick={onSubmit} >로그아웃</NavLink></li>
                         </ul>

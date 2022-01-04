@@ -2,30 +2,30 @@ import React, {useEffect,useState} from "react";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import AniMalList from "../components/AniMalList";
-import {Link} from "react-router-dom";
-const AniMal = () =>{
-    const [aniMal, setAniMal] = useState([]);
-    const [loading, setLoding] = useState(true);
+
+const AniMal = () =>{ // 동물 리스트 페이지
+
+    const [aniMal, setAniMal] = useState([]); // 동물변수
+    const [loading, setLoding] = useState(true); //화면로딩변수
       
 
-    useEffect(() => { //랜더링 시 실행 즉 마운트라고 생각하는게 편함
-        axios.get('/ani') //JSONPlaceholder 받아온거임
-            .then(response => { // 비동기 응답
-                setAniMal(response.data); //useState안에 값을 넣음
-                setLoding(false);
+    useEffect(() => { //랜더링시 동물 리스트 요청
+        axios.get('/ani')
+            .then(response => {
+                setAniMal(response.data); // 동물 리스트 데이터 담기
+                setLoding(false); // 성공시 스피너 오프
             })
-    }, []); // 실행될때 한번만 데이터 가져오기
+    }, []);
 
-    useEffect(() => {
-        //console.log(aniMal); // [] 값만들어지고
-    },[aniMal]); // user변경사항 있을때 실행
+    useEffect(() => {// 리스트 삭제나 수정 글쓰기등 변경 사항이 있을 시 랜더링
+
+    },[aniMal]);
 
     return (
         <>
             <h1>Animal list</h1>
-            {loading ? <Spinner/> : //트루면 <Spinner/> 실행 아니면  <AniMalList aniMal = {aniMal}/> 실행
+            {loading ? <Spinner/> :
             <AniMalList user = {aniMal}/>}
-            {/*props를 넘겨줌 */}
         </>
 
     );
