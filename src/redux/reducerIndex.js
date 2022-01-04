@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {createStore} from "redux";
 import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import Loginck from "./loginck";
@@ -10,10 +10,10 @@ const persistConfig = {
     //  whitelist: ["Loginck"]
 };
 
-const counterReducer = persistReducer (persistConfig, Loginck);  // 스토어 정의
+const counterReducer = persistReducer(persistConfig, Loginck);  // 스토어 정의
 
 export default function configureStore() { // 리덕스 정의
     const store = createStore(counterReducer);
     const persistor = persistStore(store);
-    return{store, persistor };
+    return {store, persistor};
 };
