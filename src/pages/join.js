@@ -19,6 +19,7 @@ const Join = () =>{ // 회원가입 페이지
             email: hooMemberEmail,
             password: hooMemberPassword,
         });
+
         history('/ani/login');
 
     }

@@ -6,8 +6,8 @@ import {
 import axios from "axios";
 // url을 조정가능하게 만듬
 import {useDispatch, useSelector} from 'react-redux'
-import {LogInfalse, LogIntrue} from "../redux/action";
-import {AcountCheck} from "../redux/loginck";
+import {LogInfalse} from "../redux/action";
+
 
 
 const Navbar = () => { //네비게이션 바
@@ -15,10 +15,12 @@ const Navbar = () => { //네비게이션 바
     const dispatch = useDispatch(); //리덕스 set 함수
     const user = useSelector(state => state.value); //리덕스 get 함수
 
-    const onSubmit = () => { // 로그인시 서버에 요청, 리덕스값: false로 바꿈
+
+    const onSubmit = () => { // 로그인아웃시 서버에 요청, 리덕스값: false로 바꿈
         axios.post('/logout')
         dispatch({type: LogInfalse});
     }
+
 
     if (user === 'false') { // 비로그인시 회원가입과 로그인 네비바
         return (
