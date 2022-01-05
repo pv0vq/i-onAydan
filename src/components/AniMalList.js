@@ -13,7 +13,9 @@ const AniMalList = ({user}) => { // 동물 리스트 컴포넌트
                 </div>
               </div>);
         })}
-
+      <br/>
+          <br/>
+          <Link to='/ani/write'>글쓰기</Link>
       </div>
   );
 };

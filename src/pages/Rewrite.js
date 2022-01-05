@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useLocation,useNavigate} from "react-router-dom"
 import axios from "axios";
+import {Card, ListGroup} from "react-bootstrap";
 
 const Rewrite = () =>{ // 동물 리스트 수정 페이지
 
@@ -36,68 +37,71 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
     return(
     <>
         <form onSubmit={onSubmit}>
-            동물이름
-            <input
-                type="text"
-                value={aniname}
-                placeholder = "동물" //인풋창의 기본 디폴트
-                onChange={(e) => setAniname(e.target.value)}
-            />
-            <br/>
+        <Card style={{ width: '18rem' }}>
+            <Card.Header>동물상태표</Card.Header>
+            <ListGroup variant="flush">
+                <ListGroup.Item>동물이름
+                    <input
+                        type="text"
+                        value={aniname}
+                        placeholder = "동물" //인풋창의 기본 디폴트
+                        onChange={(e) => setAniname(e.target.value)}
+                    /></ListGroup.Item>
+                <ListGroup.Item> <div className="form-check">
+                    <input onChange={(e) => setAniType(e.target.value)} className="form-check-input" type="checkbox" value={"Dog"}
+                           id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                        Dog
+                    </label>
+                </div>
 
-            <div className="form-check">
-                <input onChange={(e) => setAniType(e.target.value)} className="form-check-input" type="checkbox" value={"Dog"}
-                       id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                   Dog
-                </label>
-            </div>
+                    <div className="form-check">
+                        <input onChange={(e) => setAniType(e.target.value)} className="form-check-input" type="checkbox" value={"Cat"}
+                               id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                            Cat
+                        </label>
+                    </div>
+                    <input
+                        type="text"
+                        value={aniType}
+                        placeholder="기타" //인풋창의 기본 디폴트
+                        onChange={(e) => setAniType(e.target.value)}
+                    /></ListGroup.Item>
+                <ListGroup.Item> <div className="form-check">
+                    <input onChange={(e) => setCondition(e.target.value)} className="form-check-input" type="checkbox" value={"Sick"}
+                           id="flexCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                        Sick
+                    </label>
+                </div>
+                    <div className="form-check">
+                        <input onChange={(e) => setCondition(e.target.value)} className="form-check-input" type="checkbox" value={"Nomal"}
+                               id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                            Nomal
+                        </label>
+                    </div>
+                    <input
+                        type="text"
+                        value={condition}
+                        placeholder="기타" //인풋창의 기본 디폴트
+                        onChange={(e) => setCondition(e.target.value)}
+                    /></ListGroup.Item>
+                <ListGroup.Item>   <select  onChange={(e) => setNeutering(e.target.value)} className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected>중성화</option>
+                    <option value={"Neutered Male"}>Neutered Male</option>
+                    <option value={"Spayed Female"}>Spayed Female</option>
+                    <option value={"Intact Female"}>Intact Female</option>
+                    <option value={"Intact Male"}>Intact Male</option>
+                </select>
+                </ListGroup.Item>
 
-            <div className="form-check">
-                <input onChange={(e) => setAniType(e.target.value)} className="form-check-input" type="checkbox" value={"Cat"}
-                       id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Cat
-                </label>
-            </div>
-            <input
-                type="text"
-                value={aniType}
-                placeholder="기타" //인풋창의 기본 디폴트
-                onChange={(e) => setAniType(e.target.value)}
-            />
-            <br/>
-
-            <div className="form-check">
-                <input onChange={(e) => setCondition(e.target.value)} className="form-check-input" type="checkbox" value={"Sick"}
-                       id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Sick
-                </label>
-            </div>
-            <div className="form-check">
-                <input onChange={(e) => setCondition(e.target.value)} className="form-check-input" type="checkbox" value={"Nomal"}
-                       id="flexCheckDefault"/>
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Nomal
-                </label>
-            </div>
-            <input
-                type="text"
-                value={condition}
-                placeholder="기타" //인풋창의 기본 디폴트
-                onChange={(e) => setCondition(e.target.value)}
-            />
-            <select  onChange={(e) => setNeutering(e.target.value)} className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                <option selected>중성화</option>
-                <option value={"Neutered Male"}>Neutered Male</option>
-                <option value={"Spayed Female"}>Spayed Female</option>
-                <option value={"Intact Female"}>Intact Female</option>
-                <option value={"Intact Male"}>Intact Male</option>
-            </select>
-
+            </ListGroup>
+        </Card>
             <button type="onSubmit">수정</button>
-    </form>
+        </form>
+
     </>
 );
 }
