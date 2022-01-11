@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import {Link, useParams,useNavigate} from "react-router-dom";
 import {Card} from "react-bootstrap";
+import {useSelector} from "react-redux";
 
 
 const AniMalImpo = () => { // 동물 상세 페이지
@@ -11,10 +12,17 @@ const AniMalImpo = () => { // 동물 상세 페이지
     const [loading, setLoding] = useState(true); // 로딩 변수
     const {id} =useParams(); //주소창의 파라미터값 들고옴
     const history =useNavigate(); //화면이동 변수
+    const user = useSelector(state => state.value); //리덕스 get 함수
 
 
     useEffect(() => {  // 랜더링시 동물 상세 정보 요청
-        axios.get('/ani/' + id)
+        axios.get('/ani/' + id,{
+            headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user
+                }
+        })
             .then(response => {
                 setAniaml(response.data);
                 setLoding(false);
@@ -26,13 +34,21 @@ const AniMalImpo = () => { // 동물 상세 페이지
         const aniMalDetail = loading ? <Spinner/> : ( //동물 상세 html
         <div>
             <div>동물이름:  {aniaml.name}</div>
-            <div>컨티션:    {aniaml.intake_CONDITION}</div>
-            <div>중성화여부: {aniaml.sex_UPON_INTAKE}</div>
+            <div>동물종류:  {aniaml.animalType}</div>
+            <div>컨티션:    {aniaml.intakeCondition}</div>
+            <div>중성화여부: {aniaml.sexUponIntake}</div>
             <div>보호날짜:  {aniaml.datetime}</div>
+            <div>텍스트:  {aniaml.context}</div>
         </div>
     )
     const del = () => { //동물 삭제 요청
-        axios.delete('/anidel/' + id)
+        axios.delete('/anidel/' + id, {
+            headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user
+                }
+        })
             .then(response => {
                 history('/ani') // 리스트 화면으로 이동
             })

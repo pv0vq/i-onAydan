@@ -5,6 +5,8 @@ import Rewrite from "./pages/Rewrite";
 import Write from "./pages/write";
 import Join from "./pages/join";
 import Hoologin from "./pages/hoologin";
+import UserList from "./pages/UserList";
+
 
 export default [ // 라우터 설정
     {
@@ -40,4 +42,10 @@ export default [ // 라우터 설정
         component: Hoologin
 
     },
+    {
+        path: '/adm/user',
+        component: UserList
+
+    },
+
 ];

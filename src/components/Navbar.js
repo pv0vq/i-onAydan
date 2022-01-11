@@ -17,7 +17,6 @@ const Navbar = () => { //네비게이션 바
 
 
     const onSubmit = () => { // 로그인아웃시 서버에 요청, 리덕스값: false로 바꿈
-        axios.post('/logout')
         dispatch({type: LogInfalse});
     }
 
@@ -54,8 +53,10 @@ const Navbar = () => { //네비게이션 바
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item"><NavLink className="nav-link" to="/ani">AniMalList</NavLink></li>
+                            <li className="nav-item"><NavLink className="nav-link" to="/adm/user">UserList</NavLink></li>
                             <li className="nav-item"><NavLink className="nav-link" to="/ani/login"
                                                               onClick={onSubmit}>로그아웃</NavLink></li>
+
                         </ul>
                     </div>
                 </div>

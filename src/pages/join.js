@@ -7,16 +7,16 @@ const Join = () =>{ // 회원가입 페이지
 
 
     const [hooMemberId, setHooMemberId] = useState('');
-    const [hooMemberEmail, setHooMemberEmail] = useState('');
+    const [nickname, setnickname] = useState('');
     const [hooMemberPassword, setHooMemberPassword] = useState('');
 
     const history =useNavigate()
 
 
     const onSubmit =() => { // 회원가입 서버에 요청
-        axios.post('http://localhost:8080/auth/joinProc',{
+        axios.post('http://localhost:8080/api/signup',{
             username: hooMemberId,
-            email: hooMemberEmail,
+            nickname: nickname,
             password: hooMemberPassword,
         });
 
@@ -42,9 +42,9 @@ const Join = () =>{ // 회원가입 페이지
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={hooMemberEmail}placeholder="email"
-                                  onChange={(e) => setHooMemberEmail(e.target.value)}/>
+                    <Form.Label>닉네임</Form.Label>
+                    <Form.Control type="text" value={nickname}placeholder="닉네임"
+                                  onChange={(e) => setnickname(e.target.value)}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />

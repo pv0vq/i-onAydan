@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 import Loginck from "./loginck";
 
 const persistConfig = {
-    key: "hooMemberId", // 로컬저장소 키값 설정
+    key: "token", // 로컬저장소 키값 설정
 
     storage // 저장소 설정(localStorage)
     //  whitelist: ["Loginck"]

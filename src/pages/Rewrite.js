@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useLocation,useNavigate} from "react-router-dom"
 import axios from "axios";
 import {Card, ListGroup} from "react-bootstrap";
+import {useSelector} from "react-redux";
 
 const Rewrite = () =>{ // 동물 리스트 수정 페이지
 
@@ -11,7 +12,8 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
     const [condition, setCondition] = useState('');
     const [animal, setAnimal] = useState(null);
     const location = useLocation();
-    const history =useNavigate()
+    const history =useNavigate();
+    const user = useSelector(state => state.value); //리덕스 get 함수
 
 
     useEffect(() => { //랜더링 시 실행 즉 마운트라고 생각하는게 편함
@@ -29,6 +31,12 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
             sex_UPON_INTAKE: neutering,
             name:aniname,
             animal_TYPE:aniType
+        },{
+            headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user
+                }
         });
         history('/ani/' + location.state.id);
 
@@ -40,13 +48,6 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
         <Card style={{ width: '18rem' }}>
             <Card.Header>동물상태표</Card.Header>
             <ListGroup variant="flush">
-                <ListGroup.Item>동물이름
-                    <input
-                        type="text"
-                        value={aniname}
-                        placeholder = "동물" //인풋창의 기본 디폴트
-                        onChange={(e) => setAniname(e.target.value)}
-                    /></ListGroup.Item>
                 <ListGroup.Item> <div className="form-check">
                     <input onChange={(e) => setAniType(e.target.value)} className="form-check-input" type="checkbox" value={"Dog"}
                            id="flexCheckDefault"/>

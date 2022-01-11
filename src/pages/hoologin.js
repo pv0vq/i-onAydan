@@ -8,27 +8,29 @@ import {LogInfalse, LogIntrue} from "../redux/action";
 const Hoologin = () => { //로그인 페이지
 
 
-    const [hooMemberId, setHooMemberId] = useState(''); //유저 아이디
-    const [hooMemberPassword, setHooMemberPassword] = useState(''); // 유저 비밀번호
+     const [hooMemberId, setHooMemberId] = useState(''); //유저 아이디
+     const [hooMemberPassword, setHooMemberPassword] = useState(''); // 유저 비밀번호
 
 
     const history = useNavigate(); // 화면이동
     const dispatch = useDispatch(); // 리덕스 전달
 
 
-    const frm = new FormData() // 유저정보를 폼데이터로 담기
-    frm.append('username', hooMemberId);
-    frm.append('password', hooMemberPassword);
-
-
     const onSubmit = async () => { // 로그인 요청
-     axios.post('/auth/loginProc', frm) // 로그인 정보 폼데이터로 전송
-            .then(res => {  dispatch({type: LogIntrue, hooMemberId});
-                }, error => { // 로그인 실패 시
+    axios.post('/api/login',{
+         username: hooMemberId,
+         password: hooMemberPassword
+     })
+            .then(res => {
+                let hooMemberToken = res.data.token; // 토큰 저장
+                console.log(hooMemberToken);
+                dispatch({type: LogIntrue, hooMemberToken});
+                },
+                error => { // 로그인 실패 시
                 dispatch({type: LogInfalse});
                 alert('로그인 실패');
             });
-     history('/');
+        history('/');
     }
 
 

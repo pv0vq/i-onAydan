@@ -9,7 +9,7 @@ const Loginck = (state = AcountCheck, action) => { //리덕스 함수 액션 발
         case LogIntrue:
             return {
                 ...state,
-                value: action.hooMemberId //액션발생시 유저아이디 저장
+                value: action.hooMemberToken //액션발생시 유저아이디 저장
             }
         case LogInfalse:
             return {
