@@ -1,6 +1,6 @@
 import {ValueType} from "realgrid";
 
-export const fields = [
+export const fields = [ //동물 필드 , 칼럼 정의
     {
     fieldName: 'name',
     dataType: ValueType.TEXT,
@@ -66,7 +66,8 @@ export const columns = [{
         renderer: {
             type:"text",
             showTooltip: false
-        }
+    },
+        numberFormat: "#,##0.##"
 
 },
     {

@@ -24,7 +24,7 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
             })
     }, []); // 실행될때 한번만 데이터 가져오기
 
-    const onSubmit =() => {
+    const onSubmit =() => { // 동물 수정 완료 axios
         axios.put('/aniput/'+ animal.animal_ID ,{
             animal_ID: animal.animal_ID,
             intake_CONDITION: condition,

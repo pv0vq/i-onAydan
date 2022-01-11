@@ -10,12 +10,24 @@ const UserList = () => { // 메인페이지
 
 
     const [userInfo, setUserInfo] = useState([]); // 동물변수
-
     const user = useSelector(state => state.value); //리덕스 get 함수
-    // const history =useNavigate(); //화면이동 변수
-    // const writeLogin = () => { (user === 'false') ? history('/ani/login') :  history('/ani/write')}; //글쓰기는 로그인 판단
 
-    const view = (e) =>{
+
+    useEffect(async () => { // 유저그리드 시작
+        await axios.get('/admin/Hoouser', {
+            headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user
+                }
+        })
+            .then(res => {
+                view(res.data);
+            });
+
+    },[] );
+
+    const view = (e) =>{ // 유저그리드화면에 데이터 연결
         container = document.getElementById('realgrid');
         provider = new LocalDataProvider(false); //데이터를 관리하는 중요한 객체
         gridView = new GridView(container); //눈에 보이는 부분을 담당하는 중요한 객체
@@ -29,31 +41,19 @@ const UserList = () => { // 메인페이지
             ['ascending' ], // 오름차순
             ['insensitive' ] //대소문자 구별
         );
-        gridView.setEditOptions({ // 편집기 사용 선언
+        gridView.setEditOptions({ // 그리드 편집기 사용 선언
             editable: true,
             updatable: true,
             deletable: true
         });
-        gridView.columnByName("userId").editable = false; // 편집 비활성화
-        gridView.columnByName("username").editable = false;
+        gridView.columnByName("userId").editable = false; // userId 편집 비활성화
+        gridView.columnByName("username").editable = false;  // username 편집 비활성화
         pageview();
         userput();
 
     }
-    useEffect(async () => {
-        await axios.get('/admin/Hoouser', {
-            headers:
-                {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + user
-                }
-        })
-            .then(res => {
-                view(res.data);
-            });
 
-    },[] );
-    const pageview = () => {
+    const pageview = () => { // 유저 그리드 페이징
         var page = -1;
         var totalPage = -1;
         gridView.setPaging(true, 6);
@@ -81,25 +81,25 @@ const UserList = () => { // 메인페이지
     }
 
 
-    const setPrevPage = () => {
+    const setPrevPage = () => { // 그리드 페이징 이전페이지 버튼
         var currentPage = gridView.getPage();
         gridView.setPage(currentPage - 1);
 
     }
 
-    const setNextPagex = () => {
+    const setNextPagex = () => { // 그리드 페이징 다음페이지 버튼
         var currentPage = gridView.getPage();
         gridView.setPage(currentPage + 1);
     }
 
-    const userput = () =>{
+    const userput = () =>{ // 그리드 유저 수정
         var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
-        gridView.showEditor(); //
-        gridView.setFocus(); //
+        gridView.showEditor(); // 에디터화면
+        gridView.setFocus(); // 포커스잡기
         provider.onRowUpdated = function(provider, row) { // 해당로우에서 편집된 데이터를 axios로 전송
-            var r = provider.getJsonRow(row);
-            axios.put('/admin/HoouserIns', JSON.stringify(r), {
+            var r = provider.getJsonRow(row); //편집데이터담기
+            axios.put('/admin/HoouserIns', JSON.stringify(r), { //편집된 데이터를 axios로 전송
                 headers:
                     {
                         "Content-Type": "application/json",
@@ -133,8 +133,8 @@ const UserList = () => { // 메인페이지
     // }
 
 
-    const del = () =>{
-        gridView.setEditOptions({
+    const del = () =>{ // 그리드 삭제 버튼
+        gridView.setEditOptions({ // 그리드 삭제 선언
             deletable: true
         });
         var current = gridView.getCurrent();

@@ -15,9 +15,15 @@ const Home = () => { // 메인페이지
     const history =useNavigate(); //화면이동 변수
     const writeLogin = () => { (user === 'false') ? history('/ani/login') :  history('/ani/write')}; //글쓰기는 로그인 판단
 
+    useEffect(() => { //랜더링시 그리드 시작
+        axios.get('/ani')
+            .then(res => {
+                veiw(res.data);
+                // provider.setRows(res.data);
+            });
+    },);
 
-
-    const veiw = (e) => {
+    const veiw = (e) => { // 동물 그리드에 데이터 연결
        container = document.getElementById('realgrid');
        provider = new LocalDataProvider(false); //데이터를 관리하는 중요한 객체
        gridView = new GridView(container); //눈에 보이는 부분을 담당하는 중요한 객체
@@ -37,20 +43,20 @@ const Home = () => { // 메인페이지
 
     }
 
-    const pageview = () => {
-        var page = -1;
-        var totalPage = -1;
-        gridView.setPaging(true, 6);
-        page = gridView.getPage();
-        totalPage = gridView.getPageCount();
+    const pageview = () => { // 그리드 페이징
+        var page = -1; //현재 페이지 초기화
+        var totalPage = -1; // 토탈 페이지 초기화
+        gridView.setPaging(true, 6); // 페이징 사이즈
+        page = gridView.getPage(); // 현재 페이지
+        totalPage = gridView.getPageCount(); // 토탈 페이지
         document.getElementById("current-page-view").innerHTML = page + 1;
         document.getElementById("total-page-view").innerHTML = totalPage;
 
-        gridView.onPageChanged = function(grid, page) {
+        gridView.onPageChanged = function(grid, page) {//페이지가 바뀐 다음 호출
             document.getElementById("current-page-view").innerHTML = page + 1;
         };
 
-        gridView.onPageCountChanged = function(grid, pageCount) {
+        gridView.onPageCountChanged = function(grid, pageCount) { // 페이지 갯수가 바뀐 다음 호출
             document.getElementById("total-page-view").innerHTML = pageCount;
         };
 
@@ -65,33 +71,26 @@ const Home = () => { // 메인페이지
     }
 
 
-    const setPrevPage = () => {
+    const setPrevPage = () => { // 그리드 페이징 이전페이지 버튼
         var currentPage = gridView.getPage();
         gridView.setPage(currentPage - 1);
 
     }
 
-    const setNextPagex = () => {
+    const setNextPagex = () => {// 그리드 페이징 다음페이지 버튼
         var currentPage = gridView.getPage();
         gridView.setPage(currentPage + 1);
     }
 
-    useEffect(() => {
-        axios.get('/ani')
-            .then(res => {
-                veiw(res.data);
-                // provider.setRows(res.data);
-    });
-        },);
-    const del = () =>{
-        gridView.setEditOptions({
+    const del = () =>{ // 그리드 삭제 버튼
+        gridView.setEditOptions({ // 삭제 활성화
             deletable: true
         });
-        var current = gridView.getCurrent();
-        var value = provider.getValue(current.dataRow, 'animalId');
-        provider.removeRow(current.dataRow);
+        var current = gridView.getCurrent(); //현재 포커스를 갖는 셀의 CellIndex 값을 가져옴
+        var value = provider.getValue(current.dataRow, 'animalId'); // 포커스 갖는 셀에서 동물아이디 담기
+        provider.removeRow(current.dataRow); // 포커스 가는 셀 그리드 삭제
 
-        axios.delete('/anidel/' + value , {
+        axios.delete('/anidel/' + value , { // 서버에 동물 정보 삭제 요청
             headers:
                 {
                     "Content-Type": "application/json",

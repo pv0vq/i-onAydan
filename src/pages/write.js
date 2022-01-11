@@ -29,7 +29,7 @@ const Write = () =>{ // 동물 글쓰기 페이지
     const history =useNavigate()
 
 
-    const handleModelChange = (e) => {
+    const handleModelChange = (e) => { // 프로알라 context
         setContext(e.valueOf())
     }
 
@@ -56,7 +56,7 @@ const Write = () =>{ // 동물 글쓰기 페이지
     return(
         <>
             <br/>
-            <form onSubmit={onSubmit} class = "container">
+            <form onSubmit={onSubmit} >
             <Card style={{ width: '40rem'}} >
             <Card.Header>동물 상태 작성표</Card.Header>
             <ListGroup variant="flush">
@@ -107,14 +107,14 @@ const Write = () =>{ // 동물 글쓰기 페이지
                         placeholder="기타" //인풋창의 기본 디폴트
                         onChange={(e) => setCondition(e.target.value)}
                     /></ListGroup.Item>
-                <ListGroup.Item>  <select  onChange={(e) => setNeutering(e.target.value)} className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                    <option selected>중성화</option>
+                <ListGroup.Item>  <select  onChange={(e) => setNeutering(e.target.value)} defaultValue="Neutered Male" className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                     <option value={"Neutered Male"}>Neutered Male</option>
                     <option value={"Spayed Female"}>Spayed Female</option>
                     <option value={"Intact Female"}>Intact Female</option>
                     <option value={"Intact Male"}>Intact Male</option>
                 </select></ListGroup.Item>
                 </ListGroup>
+                {/*프로알라 에디터*/}
                 <FroalaEditor
                     id ='context'
                     type='textarea'

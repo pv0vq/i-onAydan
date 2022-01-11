@@ -1,10 +1,9 @@
 import {ValueType} from "realgrid";
 
-export const Userfields = [
+export const Userfields = [  //유저필드 정의
     {
         fieldName: 'userId',
         dataType: ValueType.NUMBER,
-        numberFormat: "#,##0.##"
     },
     {
         fieldName: 'username',
@@ -27,11 +26,12 @@ export const Userfields = [
         dataType: ValueType.TEXT
     }
     ];
-export const Usercolumns = [
+export const Usercolumns = [ //유저 칼럼 정의
+
     {
         name: "userId",
         fieldName: "userId",
-        type: "data",
+        type: "NUMBER",
         width: "40",
         styles: {
             textAlignment: "center"
@@ -39,7 +39,9 @@ export const Usercolumns = [
         header: {
             text: "userId",
         },
+        numberFormat: "#,##0.##"
     },
+
     {
         name: "username",
         fieldName: "username",
