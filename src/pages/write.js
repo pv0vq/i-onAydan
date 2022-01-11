@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useLocation,useNavigate} from "react-router-dom"
 import axios from "axios";
-import {Card, ListGroup} from "react-bootstrap";
+import {Button, Card, ListGroup} from "react-bootstrap";
 import FroalaEditor from 'react-froala-wysiwyg';
 import ReactDOM from "react-dom";
 
@@ -121,7 +121,7 @@ const Write = () =>{ // 동물 글쓰기 페이지
                     onModelChange={handleModelChange}
                 />
             </Card>
-    <button type="onSubmit">작성</button>
+                <Button variant="outline-info" type="onSubmit">작성</Button>{' '}
 </form>
         </>
     );

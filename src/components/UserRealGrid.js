@@ -15,9 +15,18 @@ export const Userfields = [
         dataType: ValueType.TEXT
     },
     {
-        fieldName: 'authorities',
-        dataType: ValueType.OBJECT
-    }];
+        fieldName: 'phone',
+        dataType: ValueType.TEXT
+    },
+    {
+        fieldName: 'adress',
+        dataType: ValueType.TEXT
+    },
+    {
+        fieldName: 'adressDetail',
+        dataType: ValueType.TEXT
+    }
+    ];
 export const Usercolumns = [
     {
         name: "userId",
@@ -59,6 +68,57 @@ export const Usercolumns = [
         },
         header: {
             text: "nickname",
+            showTooltip: false,
+        },
+        renderer: {
+            type:"text",
+            showTooltip: false
+        }
+    },
+    {
+        name: "phone",
+        fieldName: "phone",
+        type: "data",
+        width: "150",
+        styles: {
+            textAlignment: "center"
+        },
+        header: {
+            text: "phone",
+            showTooltip: false,
+        },
+        renderer: {
+            type:"text",
+            showTooltip: false
+        }
+    },
+    {
+        name: "adress",
+        fieldName: "adress",
+        type: "data",
+        width: "150",
+        styles: {
+            textAlignment: "center"
+        },
+        header: {
+            text: "adress",
+            showTooltip: false,
+        },
+        renderer: {
+            type:"text",
+            showTooltip: false
+        }
+    },
+    {
+        name: "adressDetail",
+        fieldName: "adressDetail",
+        type: "data",
+        width: "150",
+        styles: {
+            textAlignment: "center"
+        },
+        header: {
+            text: "adressDetail",
             showTooltip: false,
         },
         renderer: {

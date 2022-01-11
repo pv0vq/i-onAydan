@@ -9,6 +9,9 @@ const Join = () =>{ // 회원가입 페이지
     const [hooMemberId, setHooMemberId] = useState('');
     const [nickname, setnickname] = useState('');
     const [hooMemberPassword, setHooMemberPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [adress, setAdress] = useState('');
+    const [adressDetail, setAdressDetail] = useState('');
 
     const history =useNavigate()
 
@@ -18,6 +21,9 @@ const Join = () =>{ // 회원가입 페이지
             username: hooMemberId,
             nickname: nickname,
             password: hooMemberPassword,
+            phone: phone,
+            adress: adress,
+            adressDetail: adressDetail
         });
 
         history('/ani/login');
@@ -41,14 +47,27 @@ const Join = () =>{ // 회원가입 페이지
                                   onChange={(e) => setHooMemberPassword(e.target.value)}/>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3" controlId="formBasicNickname">
                     <Form.Label>닉네임</Form.Label>
-                    <Form.Control type="text" value={nickname}placeholder="닉네임"
+                    <Form.Control type="text" value={nickname} placeholder="닉네임"
                                   onChange={(e) => setnickname(e.target.value)}/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                <Form.Group className="mb-3" controlId="formBasicPhone">
+                    <Form.Label>휴대폰</Form.Label>
+                    <Form.Control type="phone" value={phone} placeholder="휴대폰"
+                                  onChange={(e) => setPhone(e.target.value)}/>
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicAdress">
+                    <Form.Label>주소</Form.Label>
+                    <Form.Control type="text" value={adress} placeholder="주소"
+                                  onChange={(e) => setAdress(e.target.value)}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicAdressDetail">
+                    <Form.Label>상세주소</Form.Label>
+                    <Form.Control type="text" value={adressDetail} placeholder="상세주소"
+                                  onChange={(e) => setAdressDetail(e.target.value)}/>
+                </Form.Group>
+
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>

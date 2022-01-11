@@ -5,6 +5,7 @@ import realgridid from "../realgridid.css"
 import axios from "axios";
 import {useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 
 let container, provider, gridView;
@@ -108,19 +109,14 @@ const Home = () => { // 메인페이지
 
    <div id ='realgrid'></div>
             <div className="toolbar">
-                <button onClick={setPrevPage}>
-                    이전페이지
-                </button>
-
+                <Button variant="outline-primary" onClick={setPrevPage}> 이전페이지</Button>{' '}
                 <span id="current-page-view"></span>/
                 <span id="total-page-view"></span>
-                <button onClick={setNextPagex}>
-                    다음페이지
-                </button>
+                <Button variant="outline-primary" onClick={setNextPagex}> 다음페이지</Button>{' '}
             </div>
+            <Button variant="outline-dark"  onClick={writeLogin}>글쓰기</Button>
+            <Button variant="outline-danger" onClick={del}>삭제</Button>{' '}
 
-            <button onClick={writeLogin}>글쓰기</button>
-            <button onClick={del}>삭제</button>
 </>
 
 

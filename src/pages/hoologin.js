@@ -16,7 +16,7 @@ const Hoologin = () => { //로그인 페이지
     const dispatch = useDispatch(); // 리덕스 전달
 
 
-    const onSubmit = async () => { // 로그인 요청
+    const onSubmit = () => { // 로그인 요청
     axios.post('/api/login',{
          username: hooMemberId,
          password: hooMemberPassword

@@ -3,6 +3,7 @@ import {GridView, LocalDataProvider} from "realgrid";
 import axios from "axios";
 import {useSelector} from "react-redux";
 import {Usercolumns, Userfields} from "../components/UserRealGrid";
+import {Button} from "react-bootstrap";
 
 let container, provider, gridView;
 const UserList = () => { // 메인페이지
@@ -28,11 +29,6 @@ const UserList = () => { // 메인페이지
             ['ascending' ], // 오름차순
             ['insensitive' ] //대소문자 구별
         );
-        userput();
-
-    }
-
-    const userput = () =>{
         gridView.setEditOptions({ // 편집기 사용 선언
             editable: true,
             updatable: true,
@@ -40,6 +36,63 @@ const UserList = () => { // 메인페이지
         });
         gridView.columnByName("userId").editable = false; // 편집 비활성화
         gridView.columnByName("username").editable = false;
+        pageview();
+        userput();
+
+    }
+    useEffect(async () => {
+        await axios.get('/admin/Hoouser', {
+            headers:
+                {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user
+                }
+        })
+            .then(res => {
+                view(res.data);
+            });
+
+    },[] );
+    const pageview = () => {
+        var page = -1;
+        var totalPage = -1;
+        gridView.setPaging(true, 6);
+        page = gridView.getPage();
+        totalPage = gridView.getPageCount();
+        document.getElementById("current-page-view").innerHTML = page + 1;
+        document.getElementById("total-page-view").innerHTML = totalPage;
+
+        gridView.onPageChanged = function(grid, page) {
+            document.getElementById("current-page-view").innerHTML = page + 1;
+        };
+
+        gridView.onPageCountChanged = function(grid, pageCount) {
+            document.getElementById("total-page-view").innerHTML = pageCount;
+        };
+
+        gridView.onPageChanged = function(grid, page) {
+            document.getElementById("current-page-view").innerHTML = page + 1;
+        };
+
+        gridView.onPageCountChanged = function(grid, pageCount) {
+            document.getElementById("total-page-view").innerHTML = pageCount;
+        };
+
+    }
+
+
+    const setPrevPage = () => {
+        var currentPage = gridView.getPage();
+        gridView.setPage(currentPage - 1);
+
+    }
+
+    const setNextPagex = () => {
+        var currentPage = gridView.getPage();
+        gridView.setPage(currentPage + 1);
+    }
+
+    const userput = () =>{
         var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
         gridView.showEditor(); //
@@ -54,22 +107,30 @@ const UserList = () => { // 메인페이지
                     }})
                 .then(res => {alert("수정");});
         };
+
     }
-
-    useEffect(async () => {
-        await axios.get('/admin/Hoouser', {
-            headers:
-                {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + user
-                }
-        })
-            .then(res => {
-                view(res.data);
-            });
-
-    },[] );
-
+    // const putPut = () => {
+    //        var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
+    //         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
+    //         gridView.showEditor(); //
+    //         gridView.setFocus(); //
+    //         provider.onRowUpdating = function(provider, row) {
+    //         var item = gridView.getEditingItem(row); // 현재 편집 중인 행 정보와 값을 가져옵니다.
+    //         console.log(item);
+    //         var r = provider.getJsonRow(item);
+    //         axios.put('/admin/HoouserIns', JSON.stringify(r), {
+    //             headers:
+    //                 {
+    //                     "Content-Type": "application/json",
+    //                     "Authorization": "Bearer " + user
+    //                 }
+    //         })
+    //             .then(res => {
+    //                 alert("수정");
+    //             });
+    //
+    //     }
+    // }
 
 
     const del = () =>{
@@ -91,9 +152,14 @@ const UserList = () => { // 메인페이지
     return (
         <>
             <div id='realgrid'></div>
-            <button onClick={del}>
-                삭제
-            </button>
+            <div className="toolbar">
+                <Button variant="outline-primary" onClick={setPrevPage}> 이전페이지</Button>{' '}
+                <span id="current-page-view"></span>/
+                <span id="total-page-view"></span>
+                <Button variant="outline-primary" onClick={setNextPagex}> 다음페이지</Button>{' '}
+            </div>
+            <Button variant="outline-danger" onClick={del}>삭제</Button>{' '}
+            {/*<Button variant="outline-warning" onClick={putPut} >수정</Button>{' '}*/}
         </>
 
 
