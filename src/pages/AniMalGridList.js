@@ -9,9 +9,9 @@ import {Button} from "react-bootstrap";
 
 
 let container, provider, gridView;
-const AniMalGridList = () => { // 메인페이지
+const AniMalGridList = () => { // 메인페이지, 동물 그리드 페이지
 
-    const user = useSelector(state => state.value); //리덕스 get 함수
+    const user = useSelector(state => state.value); //리덕스 store 값 저장 (토큰정보)
     const history =useNavigate(); //화면이동 변수
 
     const writeLogin = () => { (user === 'false') ? history('/ani/login') :  history('/ani/write')}; //글쓰기는 로그인 판단
