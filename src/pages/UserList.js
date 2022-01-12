@@ -109,6 +109,27 @@ const UserList = () => { // 메인페이지
         };
 
     }
+
+    const serchImpo = () => { // 검색기능 부분검색
+        var value = document.getElementById('txtSearch').value;
+        console.log(value);
+        var fields = provider.getOrgFieldNames();
+        var startFieldIndex = fields.indexOf(gridView.getCurrent().fieldName) + 1;
+        console.log(startFieldIndex);
+        var options = {
+            fields: fields,
+            value: value,
+            startIndex: gridView.getCurrent().itemIndex,
+            startFieldIndex: startFieldIndex,
+            wrap: true,
+            caseSensitive: false,
+            partialMatch: true
+        };
+
+        var index = gridView.searchCell(options);
+        gridView.setCurrent(index);
+
+    }
     // const putPut = () => {
     //        var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
     //         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
@@ -151,6 +172,15 @@ const UserList = () => { // 메인페이지
 
     return (
         <>
+            <input
+                type="text"
+                name="txtSearch"
+                id="txtSearch"
+                defaultValue=""
+                data-theme="a"
+            />&nbsp;&nbsp;
+
+            <Button variant="outline-warning" onClick={serchImpo}>검색하기</Button>{' '}
             <div id='realgrid'></div>
             <div className="toolbar">
                 <Button variant="outline-primary" onClick={setPrevPage}> 이전페이지</Button>{' '}

@@ -17,7 +17,7 @@ export const fields = [ //동물 필드 , 칼럼 정의
     {
         fieldName: 'dateTime',
         dataType: "datetime",
-        datetimeFormat: "yyyyMMdd"
+        datetimeFormat: "yyyy-MM-dd"
     },
     {
         fieldName: 'intakeCondition',
@@ -96,6 +96,7 @@ export const columns = [{
         textAlignment: "center"
     },
         header: "Datetime",
+
 },
     {
     name: "intakeCondition",

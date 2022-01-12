@@ -30,6 +30,12 @@ const Write = () =>{ // 동물 글쓰기 페이지
 
 
     const handleModelChange = (e) => { // 프로알라 context
+        //태그제거정규식
+        // const extractTextPattern = /(<([^>]+)>)/gi;
+
+        //태그제거
+        // const content = contentVal.replace(extractTextPattern,"");
+
         setContext(e.valueOf())
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import RealGrid, {GridView, LocalDataProvider} from "realgrid";
 import {columns, fields} from "./AnimalRealGrid";
 import realgridid from "../realgridid.css"
@@ -13,6 +13,7 @@ const Home = () => { // 메인페이지
 
     const user = useSelector(state => state.value); //리덕스 get 함수
     const history =useNavigate(); //화면이동 변수
+    const [serchText, setSerchText] = useState('');
     const writeLogin = () => { (user === 'false') ? history('/ani/login') :  history('/ani/write')}; //글쓰기는 로그인 판단
 
     useEffect(() => { //랜더링시 그리드 시작
@@ -20,6 +21,7 @@ const Home = () => { // 메인페이지
             .then(res => {
                 veiw(res.data);
                 // provider.setRows(res.data);
+                console.log(res.data)
             });
     },);
 
@@ -38,7 +40,17 @@ const Home = () => { // 메인페이지
            ['ascending'], // 오름차순
            ['insensitive'] //대소문자 구별
        );
+        gridView.editOptions.insertable = true;
+        gridView.editOptions.appendable = true;
         pageview();
+
+        gridView.setEditOptions({ // 그리드 편집기 사용 선언
+            editable: true,
+            updatable: true,
+            deletable: true
+        });
+        gridView.columnByName("animalId").editable = false; // userId 편집 비활성화
+        userput();
 
 
     }
@@ -99,14 +111,60 @@ const Home = () => { // 메인페이지
             .then(res => {alert("삭제");});
     }
 
+    const serchImpo = () => { // 검색기능 부분검색
+        var value = document.getElementById('txtSearch').value;
+        console.log(value);
+        var fields = provider.getOrgFieldNames();
+        var startFieldIndex = fields.indexOf(gridView.getCurrent().fieldName) + 1; //검색결과 맞는 정보수
+        console.log(startFieldIndex);
+        var options = { // 검색기능 옵션
+            fields: fields,
+            value: value,
+            startIndex: gridView.getCurrent().itemIndex,
+            startFieldIndex: startFieldIndex,
+            wrap: true,
+            caseSensitive: false,
+            partialMatch: true
+        };
 
+        var index = gridView.searchCell(options);
+        gridView.setCurrent(index);
+
+    }
+    const userput = () =>{ // 그리드 동물 수정
+        var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
+        gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
+        gridView.showEditor(); // 에디터화면
+        gridView.setFocus(); // 포커스잡기
+        provider.onRowUpdated = function(provider, row) { // 해당로우에서 편집된 데이터를 axios로 전송
+            var r = provider.getJsonRow(row); //편집데이터담기
+            axios.put('/aniputgird', JSON.stringify(r), { //편집된 데이터를 axios로 전송
+                headers:
+                    {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + user
+                    }})
+                .then(res => {alert("수정");});
+        };
+
+    }
 
 
     return(
         <>
             <br/>
+            <input
+                type="text"
+                name="txtSearch"
+                id="txtSearch"
+                defaultValue=""
+                data-theme="a"
+            />&nbsp;&nbsp;
 
-   <div id ='realgrid'></div>
+            <Button variant="outline-warning" onClick={serchImpo}>검색하기</Button>{' '}
+
+            <div id="realgrid"></div>
+
             <div className="toolbar">
                 <Button variant="outline-primary" onClick={setPrevPage}> 이전페이지</Button>{' '}
                 <span id="current-page-view"></span>/

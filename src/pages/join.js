@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "axios";
 import {Button, Form} from "react-bootstrap";
+import DaumPost from "../components/DaumPost";
 
 const Join = () =>{ // 회원가입 페이지
 
@@ -10,8 +11,14 @@ const Join = () =>{ // 회원가입 페이지
     const [nickname, setnickname] = useState('');
     const [hooMemberPassword, setHooMemberPassword] = useState('');
     const [phone, setPhone] = useState('');
-    const [adress, setAdress] = useState('');
-    const [adressDetail, setAdressDetail] = useState('');
+
+    const [address, setAdress] = useState('');
+    const [addressDetail, setAdressDetail] = useState('');
+
+    const [isOpenPost, setIsOpenPost] = useState(false); // 다음주소api판단
+    const onChangeOpenPost = () => {
+        setIsOpenPost(!isOpenPost);
+    };
 
     const history =useNavigate()
 
@@ -22,16 +29,19 @@ const Join = () =>{ // 회원가입 페이지
             nickname: nickname,
             password: hooMemberPassword,
             phone: phone,
-            adress: adress,
-            adressDetail: adressDetail
+            adress: address,
+            adressDetail: addressDetail
         });
 
         history('/ani/login');
 
     }
 
+
+
     return(
         <>
+
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicId">
                     <Form.Label>아이디</Form.Label>
@@ -59,12 +69,14 @@ const Join = () =>{ // 회원가입 페이지
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicAdress">
                     <Form.Label>주소</Form.Label>
-                    <Form.Control type="text" value={adress} placeholder="주소"
-                                  onChange={(e) => setAdress(e.target.value)}/>
+                    <Form.Control onClick={onChangeOpenPost} placeholder="주소" defaultValue={address} />
+                    {isOpenPost  ? (
+                        <DaumPost setAdress = {setAdress} setIsOpenPost ={setIsOpenPost}/>
+                    ) : null}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicAdressDetail">
                     <Form.Label>상세주소</Form.Label>
-                    <Form.Control type="text" value={adressDetail} placeholder="상세주소"
+                    <Form.Control type="text" value={addressDetail} placeholder="상세주소"
                                   onChange={(e) => setAdressDetail(e.target.value)}/>
                 </Form.Group>
 
