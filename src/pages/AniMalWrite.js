@@ -17,10 +17,9 @@ import {useSelector} from "react-redux";
 // import 'font-awesome/css/font-awesome.css';
 
 
-const Write = () =>{ // 동물 글쓰기 페이지
+const AniMalWrite = () =>{ // 동물 글쓰기 페이지
 
     const [neutering, setNeutering] = useState('');
-    const [aninum, setAninum] = useState('');
     const [aniname, setAniname] = useState('');
     const [aniType, setAniType] = useState('');
     const [condition, setCondition] = useState('');
@@ -32,10 +31,8 @@ const Write = () =>{ // 동물 글쓰기 페이지
     const handleModelChange = (e) => { // 프로알라 context
         //태그제거정규식
         // const extractTextPattern = /(<([^>]+)>)/gi;
-
         //태그제거
         // const content = contentVal.replace(extractTextPattern,"");
-
         setContext(e.valueOf())
     }
 
@@ -113,7 +110,11 @@ const Write = () =>{ // 동물 글쓰기 페이지
                         placeholder="기타" //인풋창의 기본 디폴트
                         onChange={(e) => setCondition(e.target.value)}
                     /></ListGroup.Item>
-                <ListGroup.Item>  <select  onChange={(e) => setNeutering(e.target.value)} defaultValue="Neutered Male" className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <ListGroup.Item>
+
+                    <select  onChange={(e) => setNeutering(e.target.value)}
+                             className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <option selected>중성화</option>
                     <option value={"Neutered Male"}>Neutered Male</option>
                     <option value={"Spayed Female"}>Spayed Female</option>
                     <option value={"Intact Female"}>Intact Female</option>
@@ -132,4 +133,4 @@ const Write = () =>{ // 동물 글쓰기 페이지
         </>
     );
 }
-export default Write;
+export default AniMalWrite;

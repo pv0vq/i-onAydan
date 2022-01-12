@@ -1,7 +1,7 @@
 import REACT, { useState } from 'react';
 import DaumPostCode from 'react-daum-postcode';
 
-const DaumPost = (props) => {
+const DaumPost = (props) => { // 다음 주소 api 컴포넌트
     const handleComplete = (data) => {
         let fullAddress = data.address;
         let extraAddress = '';

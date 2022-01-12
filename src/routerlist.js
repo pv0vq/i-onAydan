@@ -1,17 +1,17 @@
 import AniMal from "./pages/AniMal";
-import Home from "./pages/Home";
+import AniMalGridList from "./pages/AniMalGridList";
 import AniMalImpo from "./pages/AniMalImpo";
-import Rewrite from "./pages/Rewrite";
-import Write from "./pages/write";
-import Join from "./pages/join";
-import Hoologin from "./pages/hoologin";
-import UserList from "./pages/UserList";
+import AniMalRewrite from "./pages/AniMalRewrite";
+import AniMalWrite from "./pages/AniMalWrite";
+import UserJoin from "./pages/UserJoin";
+import UserLogin from "./pages/UserLogin";
+import UserGridList from "./pages/UserGridList";
 
 
 export default [ // 라우터 설정
     {
         path: '/',
-        component: Home
+        component: AniMalGridList
     },
     {
         path: '/ani',
@@ -24,27 +24,27 @@ export default [ // 라우터 설정
     },
     {
         path: '/ani/rewrite',
-        component: Rewrite
+        component: AniMalRewrite
 
     },
     {
         path: '/ani/write',
-        component: Write
+        component: AniMalWrite
 
     },
     {
         path: '/ani/hoojoin',
-        component: Join
+        component: UserJoin
 
     },
     {
         path: '/ani/login',
-        component: Hoologin
+        component: UserLogin
 
     },
     {
         path: '/adm/user',
-        component: UserList
+        component: UserGridList
 
     },
 

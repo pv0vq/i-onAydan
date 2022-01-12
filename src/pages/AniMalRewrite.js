@@ -4,7 +4,7 @@ import axios from "axios";
 import {Card, ListGroup} from "react-bootstrap";
 import {useSelector} from "react-redux";
 
-const Rewrite = () =>{ // 동물 리스트 수정 페이지
+const AniMalRewrite = () =>{ // 동물 리스트 수정 페이지
 
     const [neutering, setNeutering] = useState('');
     const [aniname, setAniname] = useState('');
@@ -89,7 +89,9 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
                         placeholder="기타" //인풋창의 기본 디폴트
                         onChange={(e) => setCondition(e.target.value)}
                     /></ListGroup.Item>
-                <ListGroup.Item>   <select  onChange={(e) => setNeutering(e.target.value)} className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <ListGroup.Item>
+                    <select  onChange={(e) => setNeutering(e.target.value)}
+                             className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                     <option selected>중성화</option>
                     <option value={"Neutered Male"}>Neutered Male</option>
                     <option value={"Spayed Female"}>Spayed Female</option>
@@ -106,4 +108,4 @@ const Rewrite = () =>{ // 동물 리스트 수정 페이지
     </>
 );
 }
-export default Rewrite;
+export default AniMalRewrite;

@@ -30,7 +30,7 @@ function App() {
                         </Route>
                         <Route path="/user" element={ <AniMal/>}>
                         </Route>
-                        <Route path="/" element={ <Home/>}>
+                        <Route path="/" element={ <AniMalGridList/>}>
                         </Route>*/}
                     </Routes>
                 </div>

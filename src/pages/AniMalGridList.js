@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import RealGrid, {GridView, LocalDataProvider} from "realgrid";
-import {columns, fields} from "./AnimalRealGrid";
+import {columns, fields} from "../realGird/AnimalRealGrid";
 import realgridid from "../realgridid.css"
 import axios from "axios";
 import {useSelector} from "react-redux";
@@ -9,11 +9,11 @@ import {Button} from "react-bootstrap";
 
 
 let container, provider, gridView;
-const Home = () => { // 메인페이지
+const AniMalGridList = () => { // 메인페이지
 
     const user = useSelector(state => state.value); //리덕스 get 함수
     const history =useNavigate(); //화면이동 변수
-    const [serchText, setSerchText] = useState('');
+
     const writeLogin = () => { (user === 'false') ? history('/ani/login') :  history('/ani/write')}; //글쓰기는 로그인 판단
 
     useEffect(() => { //랜더링시 그리드 시작
@@ -180,4 +180,4 @@ const Home = () => { // 메인페이지
     )
 };
 
-export default Home;
+export default AniMalGridList;

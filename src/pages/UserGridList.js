@@ -2,15 +2,13 @@ import React, {useEffect, useState} from "react";
 import {GridView, LocalDataProvider} from "realgrid";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import {Usercolumns, Userfields} from "../components/UserRealGrid";
+import {Usercolumns, Userfields} from "../realGird/UserRealGrid";
 import {Button} from "react-bootstrap";
 
 let container, provider, gridView;
-const UserList = () => { // 메인페이지
+const UserGridList = () => { // 유저 그리드 페이지
 
-
-    const [userInfo, setUserInfo] = useState([]); // 동물변수
-    const user = useSelector(state => state.value); //리덕스 get 함수
+    const user = useSelector(state => state.value); //리덕스 store 값 저장 (토큰정보)
 
 
     useEffect(async () => { // 유저그리드 시작
@@ -48,8 +46,8 @@ const UserList = () => { // 메인페이지
         });
         gridView.columnByName("userId").editable = false; // userId 편집 비활성화
         gridView.columnByName("username").editable = false;  // username 편집 비활성화
-        pageview();
-        userput();
+        pageview(); // 페이징 함수
+        userput(); // 그리드 수정 함수
 
     }
 
@@ -95,7 +93,7 @@ const UserList = () => { // 메인페이지
     const userput = () =>{ // 그리드 유저 수정
         var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
-        gridView.showEditor(); // 에디터화면
+        gridView.showEditor(); // 에디터 화면
         gridView.setFocus(); // 포커스잡기
         provider.onRowUpdated = function(provider, row) { // 해당로우에서 편집된 데이터를 axios로 전송
             var r = provider.getJsonRow(row); //편집데이터담기
@@ -110,49 +108,24 @@ const UserList = () => { // 메인페이지
 
     }
 
-    const serchImpo = () => { // 검색기능 부분검색
-        var value = document.getElementById('txtSearch').value;
-        console.log(value);
-        var fields = provider.getOrgFieldNames();
+    const serchImpo = () => { // 검색기능,부분검색
+        var value = document.getElementById('txtSearch').value; // 검색어
+        var fields = provider.getOrgFieldNames(); // 검색하는 칼럼
         var startFieldIndex = fields.indexOf(gridView.getCurrent().fieldName) + 1;
-        console.log(startFieldIndex);
         var options = {
             fields: fields,
             value: value,
             startIndex: gridView.getCurrent().itemIndex,
             startFieldIndex: startFieldIndex,
-            wrap: true,
-            caseSensitive: false,
-            partialMatch: true
+            wrap: true, //처음부터 다시 검색(반복검색)
+            caseSensitive: false, // 대소문자 구별
+            partialMatch: true //부분일치
         };
+        var index = gridView.searchCell(options); // 찾은 셀
 
-        var index = gridView.searchCell(options);
         gridView.setCurrent(index);
 
     }
-    // const putPut = () => {
-    //        var curr = gridView.getCurrent(); //beginUpdateRow() 통한 편집
-    //         gridView.beginUpdateRow(curr.itemIndex); // 해당 인덱스 설정
-    //         gridView.showEditor(); //
-    //         gridView.setFocus(); //
-    //         provider.onRowUpdating = function(provider, row) {
-    //         var item = gridView.getEditingItem(row); // 현재 편집 중인 행 정보와 값을 가져옵니다.
-    //         console.log(item);
-    //         var r = provider.getJsonRow(item);
-    //         axios.put('/admin/HoouserIns', JSON.stringify(r), {
-    //             headers:
-    //                 {
-    //                     "Content-Type": "application/json",
-    //                     "Authorization": "Bearer " + user
-    //                 }
-    //         })
-    //             .then(res => {
-    //                 alert("수정");
-    //             });
-    //
-    //     }
-    // }
-
 
     const del = () =>{ // 그리드 삭제 버튼
         gridView.setEditOptions({ // 그리드 삭제 선언
@@ -180,7 +153,7 @@ const UserList = () => { // 메인페이지
                 data-theme="a"
             />&nbsp;&nbsp;
 
-            <Button variant="outline-warning" onClick={serchImpo}>검색하기</Button>{' '}
+            <Button variant="outline-warning" onClick={serchImpo}>검색하기</Button>{' '} &nbsp;
             <div id='realgrid'></div>
             <div className="toolbar">
                 <Button variant="outline-primary" onClick={setPrevPage}> 이전페이지</Button>{' '}
@@ -196,4 +169,4 @@ const UserList = () => { // 메인페이지
     )
 };
 
-export default UserList;
+export default UserGridList;

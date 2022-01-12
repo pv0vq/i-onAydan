@@ -10,7 +10,7 @@ import {LogInfalse} from "../redux/action";
 
 
 
-const Navbar = () => { //네비게이션 바
+const Navbar = () => { //네비게이션 바 컴포넌트
 
     const dispatch = useDispatch(); //리덕스 set 함수
     const user = useSelector(state => state.value); //리덕스 get 함수

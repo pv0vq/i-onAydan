@@ -4,7 +4,7 @@ import axios from "axios";
 import {Button, Form} from "react-bootstrap";
 import DaumPost from "../components/DaumPost";
 
-const Join = () =>{ // 회원가입 페이지
+const UserJoin = () =>{ // 회원가입 페이지
 
 
     const [hooMemberId, setHooMemberId] = useState('');
@@ -87,4 +87,4 @@ const Join = () =>{ // 회원가입 페이지
         </>
     );
 }
-export default Join;
+export default UserJoin;
