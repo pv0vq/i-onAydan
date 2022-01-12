@@ -136,7 +136,7 @@ export const columns = [{
         name: "context",
         fieldName: "context",
         type: "data",
-        width: "300",
+        width: "280",
         styles: {
             textAlignment: "center"
         },

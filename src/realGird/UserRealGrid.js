@@ -98,7 +98,7 @@ export const Usercolumns = [
         name: "adress",
         fieldName: "adress",
         type: "data",
-        width: "150",
+        width: "300",
         styles: {
             textAlignment: "center"
         },
@@ -115,7 +115,7 @@ export const Usercolumns = [
         name: "adressDetail",
         fieldName: "adressDetail",
         type: "data",
-        width: "150",
+        width: "219",
         styles: {
             textAlignment: "center"
         },

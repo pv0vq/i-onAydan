@@ -44,6 +44,7 @@ const UserGridList = () => { // 유저 그리드 페이지
             updatable: true,
             deletable: true
         });
+        gridView.setCheckBar({visible: false});//체크박스 삭제
         gridView.columnByName("userId").editable = false; // userId 편집 비활성화
         gridView.columnByName("username").editable = false;  // username 편집 비활성화
         pageview(); // 페이징 함수

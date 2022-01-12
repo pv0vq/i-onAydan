@@ -33,7 +33,6 @@ const AniMalGridList = () => { // 메인페이지, 동물 그리드 페이지
        provider.setFields(fields); // 데이터 저장을 위한 논리적 장소를 담당하는 객체
        gridView.setColumns(columns); // DataField의 정보를 화면에 표현하기 위한 속성을 담고 있는 객체
        provider.fillJsonData(e, {fillMode: "set"}); //json 데이터 받기
-       gridView.setStateBar({visible: false});// 상태바 삭제
        gridView.setCheckBar({visible: false});//체크박스 삭제
        gridView.orderBy( // 시작시 정렬
            ['animalId'], // 칼럼명
