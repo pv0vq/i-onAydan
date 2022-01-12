@@ -19,7 +19,7 @@ import {useSelector} from "react-redux";
 
 const AniMalWrite = () =>{ // 동물 글쓰기 페이지
 
-    const [neutering, setNeutering] = useState('');
+    const [neutering, setNeutering] = useState("Neutered Male"); //중성화파악
     const [aniname, setAniname] = useState('');
     const [aniType, setAniType] = useState('');
     const [condition, setCondition] = useState('');
@@ -112,14 +112,16 @@ const AniMalWrite = () =>{ // 동물 글쓰기 페이지
                     /></ListGroup.Item>
                 <ListGroup.Item>
 
-                    <select  onChange={(e) => setNeutering(e.target.value)}
-                             className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                        <option selected>중성화</option>
-                    <option value={"Neutered Male"}>Neutered Male</option>
-                    <option value={"Spayed Female"}>Spayed Female</option>
-                    <option value={"Intact Female"}>Intact Female</option>
-                    <option value={"Intact Male"}>Intact Male</option>
-                </select></ListGroup.Item>
+                    <select
+                             onChange={(e) => setNeutering(e.target.value)}
+                             className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" >
+
+                    <option value={neutering}>Neutered Male</option>
+                    <option value="Spayed Female">Spayed Female</option>
+                    <option value="Intact Female">Intact Female</option>
+                    <option value="Intact Male">Intact Male</option>
+                </select>
+                </ListGroup.Item>
                 </ListGroup>
                 {/*프로알라 에디터*/}
                 <FroalaEditor

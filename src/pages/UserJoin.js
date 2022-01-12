@@ -69,6 +69,7 @@ const UserJoin = () =>{ // 회원가입 페이지
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicAdress">
                     <Form.Label>주소</Form.Label>
+                    {/*다음 API*/}
                     <Form.Control onClick={onChangeOpenPost} placeholder="주소" defaultValue={address} />
                     {isOpenPost  ? (
                         <DaumPost setAdress = {setAdress} setIsOpenPost ={setIsOpenPost}/>

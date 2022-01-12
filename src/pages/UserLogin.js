@@ -23,7 +23,6 @@ const UserLogin = () => { //로그인 페이지
      })
             .then(res => {
                 let hooMemberToken = res.data.token; // 토큰 저장
-                console.log(hooMemberToken);
                 dispatch({type: LogIntrue, hooMemberToken}); //로그인 성공시 토큰값 리덕스store에 저장
                 },
                 error => { // 로그인 실패 시

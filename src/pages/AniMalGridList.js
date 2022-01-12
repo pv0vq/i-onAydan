@@ -21,7 +21,7 @@ const AniMalGridList = () => { // 메인페이지, 동물 그리드 페이지
             .then(res => {
                 veiw(res.data);
                 // provider.setRows(res.data);
-                console.log(res.data)
+
             });
     },);
 
@@ -113,10 +113,8 @@ const AniMalGridList = () => { // 메인페이지, 동물 그리드 페이지
 
     const serchImpo = () => { // 검색기능 부분검색
         var value = document.getElementById('txtSearch').value;
-        console.log(value);
         var fields = provider.getOrgFieldNames();
         var startFieldIndex = fields.indexOf(gridView.getCurrent().fieldName) + 1; //검색결과 맞는 정보수
-        console.log(startFieldIndex);
         var options = { // 검색기능 옵션
             fields: fields,
             value: value,
